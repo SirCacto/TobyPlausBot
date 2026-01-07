@@ -17,7 +17,7 @@ load_dotenv()
 def format_docs(docs): #Helper code
     return "\n\n".join(doc.page_content for doc in docs)
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.5) #Sets up the Llama model through Groq
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.2) #Sets up the Llama model through Groq
 
 
 @st.cache_resource
