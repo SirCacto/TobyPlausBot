@@ -24,7 +24,7 @@ llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7) #Sets up the Llama
 def build_toby_memory(): #Vectorization
     book_loader = TextLoader("Library/Romance_In_Italy.txt", encoding='utf-8')
     bible_loader = TextLoader("Library/toby_bible.txt", encoding='utf-8')
-    questions_loader = TextLoader("Library/tobyquestions.txt", encoding='utf-8')
+    questions_loader = TextLoader("Library/toby_questions.txt", encoding='utf-8')
     
     docs = book_loader.load() + bible_loader.load() + questions_loader.load() #Merge all 3 data sources
     
