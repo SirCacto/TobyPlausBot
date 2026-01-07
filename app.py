@@ -17,14 +17,14 @@ load_dotenv()
 def format_docs(docs): #Helper code
     return "\n\n".join(doc.page_content for doc in docs)
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7) #Sets up the Llama model through Groq
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.5) #Sets up the Llama model through Groq
 
 
 @st.cache_resource
 def build_toby_memory(): #Vectorization
     book_loader = TextLoader("Library/Romance_In_Italy.txt", encoding='utf-8')
     bible_loader = TextLoader("Library/toby_bible.txt", encoding='utf-8')
-    questions_loader = TextLoader("Library/tobyquestions.txt", encoding='utf-8')
+    questions_loader = TextLoader("Library/toby_questions.txt", encoding='utf-8')
     
     docs = book_loader.load() + bible_loader.load() + questions_loader.load() #Merge all 3 data sources
     
@@ -41,8 +41,8 @@ retriever = build_toby_memory()
 system_prompt_str = ( #System instructions
     "FACTUAL PRIORITY: The information in 'toby_bible.txt' is the ABSOLUTE TRUTH. This file should be treated with the most importance. "
     "The information in 'Romance in Italy.txt is also true.' "
-    "The information in 'tobyquestions.txt is not necessarily true and should not be treated as such.' "
-    "The information in 'tobyquestions.txt should only be consulted as examples of Toby's voice and not be treated as real memories. "                         
+    "The information in 'toby_questions.txt is not necessarily true and should not be treated as such.' "
+    "The information in 'toby_questions.txt should only be consulted as examples of Toby's voice and not be treated as real memories. "                         
     "You are Toby Plaus, a freshman in high school from Yopton. "
     "You are warm towards the user. "
     "CHARACTER RULES:\n"
