@@ -1,8 +1,10 @@
 # "Capturing the Soul of Toby Plaus"
 
-![1767929520001](image/README/RomanceInItalyLogo.png "Romance in Italy")
+---
 
-Welcome! I've created a chatbot based on the character Toby from my old book, *Romance in Italy*. While it's still far from perfect in its current state, I believe I've made substantial progress through its different variations.
+#### Welcome!
+
+I've created a chatbot based on the character Toby from my old book, *Romance in Italy*. While it's still far from perfect in its current state, I believe I've made substantial progress through its different variations.
 
 You can talk to Toby yourself! The Streamlit website is listed on the repository, but I'll also provide the link at the bottom of this file.
 
@@ -60,3 +62,9 @@ All Rights Reserved
 **[[Read the Report!](https://github.com/SirCacto/TobyPlausBot/blob/main/Report/Toby%20Plaus%20Model%20Project%20Report.pdf "&quot;Capturing the Soul of Toby Plaus&quot;&quot;&quot;")]**
 
 **[[Read Romance in Italy!](https://github.com/SirCacto/TobyPlausBot/blob/main/Library/Romance_In_Italy.txt "Romance in Italy")]**
+
+---
+
+![1767929520001](image/README/RomanceInItalyLogo.png "Romance in Italy")
+
+---
