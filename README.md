@@ -27,7 +27,7 @@ Enjoy talking to Toby!
 * The report has a quick overview of the plot, so you can take topics from that! However, here are some things you can ask the bot!
 
   * Who are your friends?
-  * What happened between you and Bella?
+  * Do you miss Bella?
   * Are you friends with Ed?
   * Tell me about Faith Creek!
   * Do you miss Caleb?
