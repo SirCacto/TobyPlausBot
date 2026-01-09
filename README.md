@@ -1,6 +1,6 @@
 # "Capturing the Soul of Toby Plaus"
 
-![1767929520001](image/README/1767929520001.png "Romance in Italy")
+![1767929520001](image/README/RomanceInItalyLogo.png "Romance in Italy")
 
 Welcome! I've created a chatbot based on the character Toby from my old book, *Romance in Italy*. While it's still far from perfect in its current state, I believe I've made substantial progress through its different variations.
 
@@ -16,7 +16,7 @@ Toby's "Bible" and questions are stored at /Library/toby_bible.txt and /Library/
 
 Enjoy talking to Toby!
 
-![1767929945157](image/README/1767929945157.png "Toby Plaus")
+![1767929945157](image/README/TobyImage.png "Toby Plaus")
 
 -Jack (1/8/26)
 
