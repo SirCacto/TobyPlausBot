@@ -12,8 +12,6 @@ from pathlib import Path
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_community.chat_message_histories import ChatMessageHistory
 
-BASE_DIR = Path(__file__).resolve().parent
-
 load_dotenv()
 
 history = ChatMessageHistory()
@@ -36,15 +34,13 @@ llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.0)
 
 @st.cache_resource
 def initialize_toby():
-    library_path = BASE_DIR.parent / "Library"
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=600, chunk_overlap=100)
 
     # Loads the provided data, which is treated as "data"
-    data_loader = TextLoader(
-        str(library_path / "toby_data.txt"), encoding='utf-8')
+    data_loader = TextLoader("Library/toby_data.txt", encoding='utf-8')
     data_raw = data_loader.load()
     data_chunks = splitter.split_documents(data_raw)
     for d in data_chunks:
@@ -54,7 +50,7 @@ def initialize_toby():
 
     # Loads the book, which is treated as "memories"
     book_loader = TextLoader(
-        str(library_path / "Romance_In_Italy.txt"), encoding='utf-8')
+        "Library/Romance_In_Italy.txt", encoding='utf-8')
     book_raw = book_loader.load()
     book_chunks = splitter.split_documents(book_raw)
     for d in book_chunks:
@@ -64,7 +60,7 @@ def initialize_toby():
 
     # Loads the questions, which are treated as "voice" examples
     questions_loader = TextLoader(
-        str(library_path / "toby_questions.txt"), encoding='utf-8')
+        "Library/toby_questions.txt", encoding='utf-8')
     questions_raw = questions_loader.load()
     q_chunks = splitter.split_documents(questions_raw)
     for d in q_chunks:
