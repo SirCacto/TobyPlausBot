@@ -10,11 +10,8 @@ from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 from pathlib import Path
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
-from langchain_community.chat_message_histories import ChatMessageHistory
 
 load_dotenv()
-
-history = ChatMessageHistory()
 
 
 def format_docs(docs):  # Cleans the text for the bot to read
