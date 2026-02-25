@@ -13,6 +13,9 @@ from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
 load_dotenv()
 
+st.set_page_config(page_title="Talk to Toby Plaus",
+                   page_icon="🎹")  # Page Config
+
 
 def format_docs(docs):  # Cleans the text for the bot to read
     formatted_chunks = []
