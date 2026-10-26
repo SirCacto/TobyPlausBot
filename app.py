@@ -13,8 +13,7 @@ from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
 load_dotenv()
 
-st.set_page_config(page_title="Talk to Toby Plaus",
-                   page_icon="🎹")  # Page Config
+st.set_page_config(page_title="Talk to Toby Plaus", page_icon="🎹")  # Page Config
 
 
 def format_docs(docs):  # Cleans the text for the bot to read
@@ -24,23 +23,23 @@ def format_docs(docs):  # Cleans the text for the bot to read
         # Takes the Toby narrator tag
         narrator = doc.metadata.get("narrator", "Toby (General)")
         formatted_chunks.append(
-            f"SOURCE: {source} | POV: {narrator}\n{doc.page_content}")
+            f"SOURCE: {source} | POV: {narrator}\n{doc.page_content}"
+        )
     return "\n\n".join(formatted_chunks)
 
 
 # The temperature is kept at 0.0 to make sure the model doesn't diverge from Toby's life
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.0)
+llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0.0)
 
 
 @st.cache_resource
 def initialize_toby():
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=600, chunk_overlap=100)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
 
     # Loads the provided data, which is treated as "data"
-    data_loader = TextLoader("Library/toby_data.txt", encoding='utf-8')
+    data_loader = TextLoader("Library/toby_data.txt", encoding="utf-8")
     data_raw = data_loader.load()
     data_chunks = splitter.split_documents(data_raw)
     for d in data_chunks:
@@ -49,8 +48,7 @@ def initialize_toby():
     data_store = FAISS.from_documents(data_chunks, embeddings)
 
     # Loads the book, which is treated as "memories"
-    book_loader = TextLoader(
-        "Library/Romance_In_Italy.txt", encoding='utf-8')
+    book_loader = TextLoader("Library/Romance_In_Italy.txt", encoding="utf-8")
     book_raw = book_loader.load()
     book_chunks = splitter.split_documents(book_raw)
     for d in book_chunks:
@@ -59,8 +57,7 @@ def initialize_toby():
     memory_store = FAISS.from_documents(book_chunks, embeddings)
 
     # Loads the questions, which are treated as "voice" examples
-    questions_loader = TextLoader(
-        "Library/toby_questions.txt", encoding='utf-8')
+    questions_loader = TextLoader("Library/toby_questions.txt", encoding="utf-8")
     questions_raw = questions_loader.load()
     q_chunks = splitter.split_documents(questions_raw)
     for d in q_chunks:
@@ -75,7 +72,7 @@ def initialize_toby():
         # Memories has the most examples since it's the book itself
         "memories": memory_store.as_retriever(search_kwargs={"k": 8}),
         # Voice gets a few examples to make sure the bot sounds like Toby
-        "voice": questions_store.as_retriever(search_kwargs={"k": 3})
+        "voice": questions_store.as_retriever(search_kwargs={"k": 3}),
     }
 
 
@@ -104,8 +101,7 @@ system_prompt_str = (
 def build_combined_context(input_text):  # Builds the AI's context
 
     data_chunks = retriever["data"].invoke(input_text)  # Data
-    memory_chunks = retriever["memories"].invoke(
-        input_text)  # Romance in Italy
+    memory_chunks = retriever["memories"].invoke(input_text)  # Romance in Italy
     voice_chunks = retriever["voice"].invoke(input_text)  # Questions
 
     context_str = "CRITICAL DATA FACTS:\n"
@@ -117,17 +113,16 @@ def build_combined_context(input_text):  # Builds the AI's context
     return context_str
 
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", system_prompt_str),
-    ("human", "{input}"),
-])
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", system_prompt_str),
+        ("human", "{input}"),
+    ]
+)
 
 
 rag_chain = (
-    {
-        "context": RunnableLambda(build_combined_context),
-        "input": RunnablePassthrough()
-    }
+    {"context": RunnableLambda(build_combined_context), "input": RunnablePassthrough()}
     | prompt
     | llm
     | StrOutputParser()
